@@ -1,0 +1,22 @@
+import cv2
+
+detect = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+imp_img = cv2.VideoCapture("elon.jpg")
+
+res, img = imp_img.read()
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Detects faces of different sizes in the input image
+faces = detect.detectMultiScale(gray, 1.3, 5)
+
+for (x, y, w, h) in faces:
+    # To draw a rectangle in a face
+                       #(img,pt1,pt2,color,thickness)
+                       #pt1 - vertex of rectangle
+                       #pt2 - vertex of rectangle opp.to pt1
+    cv2.rectangle(img, (x, y), (x + w, y + h), (255, 255, 0), 2)
+
+cv2.imshow('Elon Image', img)
+cv2.waitKey(0)
+imp_img.release()
+cv2.destroyAllWindows()
